@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registrasi Page</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(to bottom, #f4f4f9, #e2e2e2);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .container {
+        width: 850px;
+        display: flex;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        border-radius: 10px;
+        overflow: hidden;
+        background: #fff;
+        animation: fadeIn 1s ease-in-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .welcome-section {
+        flex: 1;
+        background: linear-gradient(135deg, #8e44ad, #3498db);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+        text-align: center;
+        padding: 20px;
+      }
+
+      .welcome-section h1 {
+        font-size: 36px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .welcome-section img {
+        width: 100px;
+        height: auto;
+        margin: 20px 0;
+      }
+
+      .welcome-section p {
+        font-size: 14px;
+        font-style: italic;
+      }
+
+      .form-section {
+        flex: 1;
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+      }
+
+      .form-section h2 {
+        margin-bottom: 10px;
+        font-size: 26px;
+        color: #333;
+        text-align: center;
+      }
+
+      .form-section p {
+        margin-bottom: 20px;
+        color: #666;
+        font-size: 15px;
+        text-align: center;
+      }
+
+      .form-section form {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .form-section form .input-group {
+        margin-bottom: 20px;
+        position: relative;
+      }
+
+      .form-section form .input-group input {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        outline: none;
+        font-size: 14px;
+        transition: border-color 0.3s;
+      }
+
+      .form-section form .input-group input:focus {
+        border-color: #6a0dad;
+      }
+
+      .form-section form button {
+        padding: 12px;
+        border: none;
+        border-radius: 5px;
+        background: linear-gradient(135deg, #6a0dad, #8e44ad);
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background 0.3s, transform 0.2s;
+      }
+
+      .form-section form button:hover {
+        background: #531185;
+        transform: translateY(-2px);
+      }
+
+      .form-section .login-link {
+        margin-top: 20px;
+        text-align: center;
+        font-size: 14px;
+      }
+
+      .form-section .login-link a {
+        text-decoration: none;
+        color: #6a0dad;
+        font-weight: bold;
+        transition: color 0.3s;
+      }
+
+      .form-section .login-link a:hover {
+        color: #531185;
+      }
+
+      footer {
+        margin-top: 20px;
+        text-align: center;
+        font-size: 14px;
+        color: #555;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="welcome-section">
+        <h1>News Connect</h1>
+        <p>Bergabunglah dan nikmati berita terkini.</p>
+      </div>
+      <div class="form-section">
+        <h2>Registrasi</h2>
+        <p>Buat akun baru untuk bergabung</p>
+
+        <% if (locals.pesan) { %>
+        <div class="error-message"><%= pesan %></div>
+        <% } %>
+
+        <form action="/register" method="POST">
+          <div class="input-group">
+            <input
+              type="text"
+              name="namaLengkap"
+              placeholder="Nama Lengkap"
+              required
+            />
+          </div>
+          <div class="input-group">
+            <input type="email" name="email" placeholder="Email" required />
+          </div>
+          <div class="input-group">
+            <input
+              type="password"
+              name="kataSandi"
+              placeholder="Kata Sandi"
+              required
+            />
+          </div>
+          <button type="submit">Daftar</button>
+        </form>
+
+        <div class="login-link">
+          Sudah punya akun? <a href="/login">Login</a>
+        </div>
+      </div>
+    </div>
+    <footer>Reno Nilam Sari || 2024</footer>
+  </body>
+</html>

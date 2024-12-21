@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Page</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Arial", sans-serif;
+        background: linear-gradient(to bottom, #f4f4f9, #e2e2e2);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .container {
+        width: 850px;
+        display: flex;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        border-radius: 10px;
+        overflow: hidden;
+        background: #fff;
+        animation: fadeIn 1s ease-in-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .welcome-section {
+        flex: 1;
+        background: linear-gradient(135deg, #8e44ad, #3498db);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+        text-align: center;
+        padding: 20px;
+      }
+
+      .welcome-section h1 {
+        font-size: 36px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .welcome-section img {
+        width: 100px;
+        height: auto;
+        margin: 20px 0;
+      }
+
+      .welcome-section p {
+        font-size: 14px;
+        font-style: italic;
+      }
+
+      .form-section {
+        flex: 1;
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+      }
+
+      .form-section h2 {
+        margin-bottom: 10px;
+        font-size: 26px;
+        color: #333;
+      }
+
+      .form-section p {
+        margin-bottom: 20px;
+        color: #666;
+        font-size: 15px;
+      }
+
+      .form-section form {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .form-section form .input-group {
+        margin-bottom: 20px;
+        position: relative;
+      }
+
+      .form-section form .input-group input {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        outline: none;
+        font-size: 14px;
+        transition: border-color 0.3s;
+      }
+
+      .form-section form .input-group input:focus {
+        border-color: #6a0dad;
+      }
+
+      .form-section form .input-group i {
+        position: absolute;
+        top: 50%;
+        left: 10px;
+        transform: translateY(-50%);
+        color: #888;
+      }
+
+      .form-section form button {
+        padding: 12px;
+        border: none;
+        border-radius: 5px;
+        background: linear-gradient(135deg, #6a0dad, #8e44ad);
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background 0.3s, transform 0.2s;
+      }
+
+      .form-section form button:hover {
+        background: #531185;
+        transform: translateY(-2px);
+      }
+
+      .form-section .signup {
+        margin-top: 20px;
+        text-align: center;
+        font-size: 14px;
+      }
+
+      .form-section .signup a {
+        text-decoration: none;
+        color: #6a0dad;
+        font-weight: bold;
+        transition: color 0.3s;
+      }
+
+      .form-section .signup a:hover {
+        color: #531185;
+      }
+
+      .form-section .options {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 14px;
+        margin-bottom: 20px;
+      }
+
+      .form-section .options a {
+        text-decoration: none;
+        color: #6a0dad;
+        transition: color 0.3s;
+      }
+
+      .form-section .options a:hover {
+        color: #531185;
+      }
+
+      footer {
+        margin-top: 20px;
+        text-align: center;
+        font-size: 14px;
+        color: #555;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="welcome-section">
+        <h1>News Connect</h1>
+      </div>
+      <div class="form-section">
+        <h2>Login</h2>
+        <p>Selamat datang! Silahkan login untuk melanjutkan,</p>
+
+        <div id="pesan-error"></div>
+
+        <form id="login-form">
+          <div class="input-group">
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Email"
+              required
+            />
+          </div>
+          <div class="input-group">
+            <input
+              type="password"
+              name="kataSandi"
+              id="kata-sandi"
+              placeholder="Kata Sandi"
+              required
+            />
+          </div>
+          <button type="submit">Login</button>
+        </form>
+
+        <div class="signup">
+          Pengguna baru? <a href="/register">Daftar Disini</a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document
+        .getElementById("login-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const emailInput = document.getElementById("email");
+          const kataSandiInput = document.getElementById("kata-sandi");
+          const pesanError = document.getElementById("pesan-error");
+
+          // Reset pesan error
+          pesanError.textContent = "";
+
+          try {
+            console.log("Mencoba login dengan:", {
+              email: emailInput.value,
+              passwordLength: kataSandiInput.value.length,
+            });
+
+            const response = await fetch("/login", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                email: emailInput.value,
+                kataSandi: kataSandiInput.value,
+              }),
+            });
+
+            // Log status response
+            console.log("Response status:", response.status);
+
+            // Parse response
+            const data = await response.json();
+
+            // Log data response
+            console.log("Response data:", data);
+
+            if (data.success) {
+              // Simpan token di localStorage dan cookie
+              localStorage.setItem("token", data.token);
+              document.cookie = `token=${data.token}; path=/; max-age=3600`;
+
+              // Redirect ke halaman chat
+              window.location.href = data.redirect;
+            } else {
+              // Tampilkan pesan error
+              pesanError.textContent = data.pesan || "Login gagal";
+              console.error("Login gagal:", data.pesan);
+            }
+          } catch (error) {
+            console.error("Kesalahan login:", error);
+            pesanError.textContent = "Terjadi kesalahan. Silakan coba lagi.";
+          }
+        });
+    </script>
+  </body>
+</html>
